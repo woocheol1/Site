@@ -1,0 +1,126 @@
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 px-6 md:px-8 bg-[#1E293B] backdrop-blur-lg border-b border-white/10" role="banner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <!-- Logo -->
+        <a class="flex items-center gap-2 font-heading text-xl md:text-2xl font-semibold group" href="/">
+            <div class="relative w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-lg group-hover:scale-105 transition-transform duration-300">
+                <img src="https://plimzlmmftdbpipbnhsy.supabase.co/storage/v1/object/public/images//logo.png" alt="알파블로그 로고" class="w-full h-full object-contain">
+                <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r transition-all duration-300 from-white to-purple-200">알파블로그</span>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-base md:text-lg font-medium relative transition-all duration-300 px-3 py-2 rounded-md group flex items-center text-white/90 hover:text-white" aria-current="page" href="/">
+                <div class="relative z-10 flex items-center"><span>홈</span></div>
+                <span class="absolute bottom-0 left-0 w-full h-1 transform origin-left transition-transform duration-300 bg-purple-400 scale-x-100" aria-hidden="true"></span>
+            </a>
+            <a class="text-base md:text-lg font-medium relative transition-all duration-300 px-3 py-2 rounded-md group flex items-center text-white/90 hover:text-white" href="/blog">
+                <div class="relative z-10 flex items-center"><span>블로그</span></div>
+                <span class="absolute bottom-0 left-0 w-full h-1 transform origin-left transition-transform duration-300 bg-purple-400 scale-x-0 group-hover:scale-x-100" aria-hidden="true"></span>
+            </a>
+            <a class="text-base md:text-lg font-medium relative transition-all duration-300 px-3 py-2 rounded-md group flex items-center text-white/90 hover:text-white" href="/gpts">
+                <div class="relative z-10 flex items-center"><span>GPTS 이용하기</span></div>
+                <span class="absolute bottom-0 left-0 w-full h-1 transform origin-left transition-transform duration-300 bg-purple-400 scale-x-0 group-hover:scale-x-100" aria-hidden="true"></span>
+            </a>
+            <a class="text-base md:text-lg font-medium relative transition-all duration-300 px-3 py-2 rounded-md group flex items-center text-white/90 hover:text-white" href="/services">
+                <div class="relative z-10 flex items-center"><span>서비스</span></div>
+                <span class="absolute bottom-0 left-0 w-full h-1 transform origin-left transition-transform duration-300 bg-purple-400 scale-x-0 group-hover:scale-x-100" aria-hidden="true"></span>
+            </a>
+            <a class="text-base md:text-lg font-medium relative transition-all duration-300 px-3 py-2 rounded-md group flex items-center text-white/90 hover:text-white" href="/community">
+                <div class="relative z-10 flex items-center"><span>커뮤니티</span></div>
+                <span class="absolute bottom-0 left-0 w-full h-1 transform origin-left transition-transform duration-300 bg-purple-400 scale-x-0 group-hover:scale-x-100" aria-hidden="true"></span>
+            </a>
+        </nav>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-trigger" class="md:hidden p-2 rounded-full transition-colors duration-300 text-white hover:bg-white/10" aria-expanded="false" aria-label="Open navigation menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true">
+                <line x1="4" x2="20" y1="12" y2="12"></line>
+                <line x1="4" x2="20" y1="6" y2="6"></line>
+                <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-white shadow-lg z-50 transform transition-all duration-300 ease-in-out translate-x-full opacity-0 pointer-events-none" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+        <div class="flex justify-between items-center p-6 border-b bg-white">
+            <a class="flex items-center gap-2 font-heading text-xl md:text-2xl font-semibold group" href="/">
+                <div class="relative w-8 h-8 md:w-10 md:h-10 overflow-hidden rounded-lg group-hover:scale-105 transition-transform duration-300">
+                    <img src="https://plimzlmmftdbpipbnhsy.supabase.co/storage/v1/object/public/images//logo.png" alt="알파블로그 로고" class="w-full h-full object-contain">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r transition-all duration-300 from-purple-800 to-purple-600">알파블로그</span>
+            </a>
+            <button class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200" aria-label="Close navigation menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x text-purple-800">
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-6 space-y-4 animate-fade-in pb-20 bg-white">
+            <a class="text-xl font-medium text-purple-800 p-2 rounded-md transition-all duration-300 relative flex items-center bg-purple-50 pl-4" aria-current="page" href="/">
+                <span>홈</span>
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-purple-600 rounded-r-full" aria-hidden="true"></span>
+            </a>
+            <a class="text-xl font-medium text-purple-800 p-2 rounded-md transition-all duration-300 relative flex items-center hover:bg-purple-50/50 hover:pl-4" href="/blog">
+                <span>블로그</span>
+            </a>
+            <a class="text-xl font-medium text-purple-800 p-2 rounded-md transition-all duration-300 relative flex items-center hover:bg-purple-50/50 hover:pl-4" href="/community">
+                <span>커뮤니티</span>
+            </a>
+            <a class="text-xl font-medium text-purple-800 p-2 rounded-md transition-all duration-300 relative flex items-center hover:bg-purple-50/50 hover:pl-4" href="/services">
+                <span>서비스</span>
+            </a>
+            <a class="text-xl font-medium text-purple-800 p-2 rounded-md transition-all duration-300 relative flex items-center hover:bg-purple-50/50 hover:pl-4" href="/gpts">
+                <span>GPTS 이용하기</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- Mobile Bottom Navigation -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg">
+    <div class="flex justify-around items-center h-16">
+        <a class="flex flex-col items-center justify-center w-full h-full text-purple-700" aria-current="page" href="/">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
+                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+            </span>
+            <span class="text-xs mt-1">홈</span>
+        </a>
+        <a class="flex flex-col items-center justify-center w-full h-full text-gray-600" href="/blog">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open">
+                    <path d="M12 7v14"></path>
+                    <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+                </svg>
+            </span>
+            <span class="text-xs mt-1">블로그</span>
+        </a>
+        <a class="flex flex-col items-center justify-center w-full h-full text-gray-600" href="/community">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle">
+                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+                </svg>
+            </span>
+            <span class="text-xs mt-1">실시간 채팅</span>
+        </a>
+        <button class="flex flex-col items-center justify-center w-full h-full" aria-label="더 많은 메뉴 보기">
+            <span class="text-purple-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                </svg>
+            </span>
+            <span class="text-xs mt-1 text-purple-600">더보기</span>
+        </button>
+    </div>
+</div>
+<div class="md:hidden h-16"></div>
