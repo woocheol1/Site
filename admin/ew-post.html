@@ -1,0 +1,620 @@
+{
+  `path`: `C:UsersPCDesktopcursoralpaadmin
+ew-post.html`,
+  `content`: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="알파블로그 관리자 페이지">
+    <meta name="author" content="알파블로그">
+    
+    <title>알파블로그 - 새 글 작성</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://plimzlmmftdbpipbnhsy.supabase.co/storage/v1/object/public/images//logo.png">
+    <link rel="apple-touch-icon" href="https://plimzlmmftdbpipbnhsy.supabase.co/storage/v1/object/public/images//logo.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <!-- Tailwind CDN 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- 에디터용 TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <style>
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+        
+        /* 에디터 스타일 */
+        .tox-tinymce {
+            border-radius: 0.375rem;
+            border-color: #E5E7EB !important;
+        }
+        
+        /* 로딩 스피너 */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #8B5CF6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 썸네일 프리뷰 */
+        .thumbnail-preview {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        /* 태그 입력 스타일 */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .tag-item {
+            background-color: #EDE9FE;
+            color: #8B5CF6;
+            border-radius: 9999px;
+            padding: 4px 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .tag-remove {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .tag-remove:hover {
+            background-color: rgba(139, 92, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex min-h-screen">
+        <!-- 사이드바 -->
+        <aside id="sidebar" class="sidebar w-64 bg-[#1E293B] text-white fixed h-full md:relative md:translate-x-0 z-30">
+            <div class="p-4 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                    <img src="https://plimzlmmftdbpipbnhsy.supabase.co/storage/v1/object/public/images//logo.png" alt="알파블로그 로고" class="w-8 h-8 object-contain">
+                    <span class="font-bold text-xl">알파블로그 관리</span>
+                </div>
+            </div>
+            <nav class="mt-6">
+                <ul>
+                    <li>
+                        <a href="index.html" class="flex items-center gap-2 px-4 py-3 text-white/80 hover:bg-purple-700 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            대시보드
+                        </a>
+                    </li>
+                    <li>
+                        <a href="posts.html" class="flex items-center gap-2 px-4 py-3 text-white/80 hover:bg-purple-700 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" x2="8" y1="13" y2="13" />
+                                <line x1="16" x2="8" y1="17" y2="17" />
+                                <line x1="10" x2="8" y1="9" y2="9" />
+                            </svg>
+                            블로그 글 관리
+                        </a>
+                    </li>
+                    <li>
+                        <a href="new-post.html" class="flex items-center gap-2 px-4 py-3 bg-purple-600 text-white hover:bg-purple-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="12" x2="12" y1="18" y2="12" />
+                                <line x1="9" x2="15" y1="15" y2="15" />
+                            </svg>
+                            새 글 작성
+                        </a>
+                    </li>
+                    <li>
+                        <a href="categories.html" class="flex items-center gap-2 px-4 py-3 text-white/80 hover:bg-purple-700 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag">
+                                <path d="M12.8 21.1l8.3-8.3a2 2 0 0 0 0-2.8l-7.3-7.3a2 2 0 0 0-2.8 0L2.7 11a2 2 0 0 0 0 2.8l7.3 7.3a2 2 0 0 0 2.8 0Z" />
+                                <circle cx="16" cy="8" r="2" />
+                            </svg>
+                            카테고리 관리
+                        </a>
+                    </li>
+                    <li>
+                        <a href="comments.html" class="flex items-center gap-2 px-4 py-3 text-white/80 hover:bg-purple-700 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                            댓글 관리
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html" class="flex items-center gap-2 px-4 py-3 text-white/80 hover:bg-purple-700 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings">
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            설정
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="absolute bottom-0 w-full p-4 border-t border-white/10">
+                <a href="../" class="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" x2="9" y1="12" y2="12" />
+                    </svg>
+                    메인 사이트로 이동
+                </a>
+            </div>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="flex-1 flex flex-col">
+            <!-- 상단 네비게이션 -->
+            <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between sticky top-0 z-20">
+                <button id="menu-toggle" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <div class="flex items-center ml-auto">
+                    <div class="relative">
+                        <button class="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                            <span class="font-medium">관리자</span>
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=8B5CF6&color=fff" alt="Admin" class="w-8 h-8 rounded-full">
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 새 글 작성 폼 -->
+            <main class="flex-1 p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">새 글 작성</h1>
+                        <p class="text-gray-600">알파블로그에 새로운 글을 작성합니다.</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="button" id="save-draft" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 font-medium flex items-center gap-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            임시저장
+                        </button>
+                        <button type="button" id="preview-post" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 font-medium flex items-center gap-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            미리보기
+                        </button>
+                        <button type="submit" form="post-form" id="publish-post" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md font-medium flex items-center gap-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send">
+                                <path d="m22 2-7 20-4-9-9-4Z" />
+                                <path d="M22 2 11 13" />
+                            </svg>
+                            게시하기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 글 작성 폼 -->
+                <form id="post-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 왼쪽 영역 (글 제목, 내용) -->
+                        <div class="md:col-span-2 space-y-6">
+                            <!-- 제목 입력 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <label for="title" class="block text-sm font-medium text-gray-700 mb-2">제목</label>
+                                <input type="text" id="title" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors" placeholder="글 제목을 입력하세요" required>
+                            </div>
+                            
+                            <!-- 본문 에디터 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <label for="content" class="block text-sm font-medium text-gray-700 mb-2">내용</label>
+                                <textarea id="content" name="content"></textarea>
+                            </div>
+                            
+                            <!-- SEO 섹션 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">SEO 최적화</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="meta-description" class="block text-sm font-medium text-gray-700 mb-2">메타 설명</label>
+                                        <textarea id="meta-description" name="meta-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors resize-none" placeholder="검색 엔진에 표시될 설명을 입력하세요 (최대 160자)"></textarea>
+                                        <p class="text-sm text-gray-500 mt-1">검색 결과에 표시되는 글 설명입니다. 150-160자 이내로 작성하세요.</p>
+                                    </div>
+                                    <div>
+                                        <label for="focus-keyword" class="block text-sm font-medium text-gray-700 mb-2">초점 키워드</label>
+                                        <input type="text" id="focus-keyword" name="focus-keyword" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors" placeholder="주요 키워드를 입력하세요">
+                                        <p class="text-sm text-gray-500 mt-1">이 글에서 가장 중요한 키워드를 입력하세요.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 오른쪽 영역 (설정) -->
+                        <div class="space-y-6">
+                            <!-- 게시 설정 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">게시 설정</h3>
+                                <div class="space-y-4">
+                                    <!-- 상태 -->
+                                    <div>
+                                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">상태</label>
+                                        <select id="status" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors">
+                                            <option value="publish">게시</option>
+                                            <option value="draft">임시저장</option>
+                                            <option value="private">비공개</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- 카테고리 -->
+                                    <div>
+                                        <label for="category" class="block text-sm font-medium text-gray-700 mb-2">카테고리</label>
+                                        <select id="category" name="category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors">
+                                            <option value="trends">트렌드</option>
+                                            <option value="tech">기술</option>
+                                            <option value="analysis">심층 분석</option>
+                                            <option value="use-cases">활용 사례</option>
+                                            <option value="ethics">윤리</option>
+                                            <option value="tutorial">튜토리얼</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- 태그 -->
+                                    <div>
+                                        <label for="tags" class="block text-sm font-medium text-gray-700 mb-2">태그</label>
+                                        <div class="relative">
+                                            <input type="text" id="tags-input" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors" placeholder="태그 입력 후 Enter">
+                                            <input type="hidden" id="tags" name="tags" value="">
+                                        </div>
+                                        <div id="tags-container" class="tag-container"></div>
+                                        <p class="text-sm text-gray-500 mt-1">태그를 입력하고 Enter 키를 누르세요.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 썸네일 업로드 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">썸네일 이미지</h3>
+                                <div class="space-y-4">
+                                    <div id="thumbnail-preview-container" class="hidden mb-4">
+                                        <img id="thumbnail-preview" src="#" alt="썸네일 미리보기" class="thumbnail-preview rounded-md border border-gray-200">
+                                    </div>
+                                    <div class="flex items-center justify-center w-full">
+                                        <label for="thumbnail" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image text-gray-500 mb-2">
+                                                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                                                    <circle cx="9" cy="9" r="2"></circle>
+                                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                                                </svg>
+                                                <p class="mb-2 text-sm text-gray-500"><span class="font-medium">클릭하여 업로드</span> 또는 드래그 앤 드롭</p>
+                                                <p class="text-xs text-gray-500">SVG, PNG, JPG 또는 GIF (최대 2MB)</p>
+                                            </div>
+                                            <input id="thumbnail" type="file" accept="image/*" class="hidden" />
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label for="alt-text" class="block text-sm font-medium text-gray-700 mb-2">대체 텍스트</label>
+                                        <input type="text" id="alt-text" name="alt-text" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors" placeholder="이미지에 대한 설명을 입력하세요">
+                                        <p class="text-sm text-gray-500 mt-1">접근성 및 SEO를 위한 이미지 설명입니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 고급 설정 -->
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">고급 설정</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">URL 슬러그</label>
+                                        <input type="text" id="slug" name="slug" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors" placeholder="url-slug">
+                                        <p class="text-sm text-gray-500 mt-1">글 URL의 마지막 부분입니다. 공백 없이 소문자, 숫자, 하이픈으로 작성하세요.</p>
+                                    </div>
+                                    <div>
+                                        <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">발췌문</label>
+                                        <textarea id="excerpt" name="excerpt" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-colors resize-none" placeholder="글의 발췌문을 입력하세요"></textarea>
+                                        <p class="text-sm text-gray-500 mt-1">글 목록에 표시되는 요약 내용입니다.</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="allow-comments" name="allow-comments" class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500" checked>
+                                        <label for="allow-comments" class="ml-2 text-sm text-gray-700">댓글 허용</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    {
+  `path`: `C:UsersPCDesktopcursoralpaadmin
+ew-post.html`,
+  `edits`: [
+    {
+      `newText`: `    <!-- 미리보기 모달 -->    
+    <div id="preview-modal" class="fixed inset-0 bg-gray-900/50 z-50 hidden flex items-center justify-center overflow-y-auto">
+        <div class="bg-white w-full max-w-4xl rounded-lg shadow-xl mx-4 my-8">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800">글 미리보기</h3>
+                <button id="close-preview" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[70vh]" id="preview-content">
+                <!-- 미리보기 내용이 여기에 들어갑니다 -->
+            </div>
+            <div class="p-4 border-t border-gray-200 bg-gray-50 flex justify-end">
+                <button id="close-preview-btn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md font-medium transition-colors">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white/80 z-50 hidden flex items-center justify-center">
+        <div class="flex flex-col items-center">
+            <div class="spinner mb-4"></div>
+            <p class="text-gray-700 font-medium">처리 중입니다...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // TinyMCE 에디터 초기화
+            tinymce.init({
+                selector: '#content',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: '관리자',
+                mergetags_list: [
+                    { value: 'First.Name', title: 'First Name' },
+                    { value: 'Email', title: 'Email' },
+                ],
+                ai_request: (request, respondWith) => respondWith.string(),
+                height: 500,
+                language: 'ko_KR',
+                promotion: false,
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save(); // 에디터 내용 저장
+                    });
+                }
+            });
+
+            // 모바일 메뉴 토글
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            }
+
+            // 썸네일 미리보기
+            const thumbnailInput = document.getElementById('thumbnail');
+            const thumbnailPreview = document.getElementById('thumbnail-preview');
+            const thumbnailContainer = document.getElementById('thumbnail-preview-container');
+
+            if (thumbnailInput && thumbnailPreview && thumbnailContainer) {
+                thumbnailInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            thumbnailPreview.src = e.target.result;
+                            thumbnailContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // 태그 입력 처리
+            const tagsInput = document.getElementById('tags-input');
+            const tagsContainer = document.getElementById('tags-container');
+            const tagsHiddenInput = document.getElementById('tags');
+            let tags = [];
+
+            if (tagsInput && tagsContainer && tagsHiddenInput) {
+                tagsInput.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        const tag = this.value.trim();
+                        if (tag && !tags.includes(tag)) {
+                            tags.push(tag);
+                            updateTags();
+                        }
+                        this.value = '';
+                    }
+                });
+
+                function updateTags() {
+                    tagsContainer.innerHTML = '';
+                    tags.forEach((tag, index) => {
+                        const tagElement = document.createElement('div');
+                        tagElement.className = 'tag-item';
+                        tagElement.innerHTML = `
+                            ${tag}
+                            <span class="tag-remove" data-index="${index}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                                    <path d="M18 6 6 18"></path>
+                                    <path d="m6 6 12 12"></path>
+                                </svg>
+                            </span>
+                        `;
+                        tagsContainer.appendChild(tagElement);
+                    });
+
+                    // 태그 삭제 이벤트 추가
+                    document.querySelectorAll('.tag-remove').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const index = parseInt(this.dataset.index);
+                            tags.splice(index, 1);
+                            updateTags();
+                        });
+                    });
+
+                    // hidden input 업데이트
+                    tagsHiddenInput.value = JSON.stringify(tags);
+                }
+            }
+
+            // 자동 슬러그 생성
+            const titleInput = document.getElementById('title');
+            const slugInput = document.getElementById('slug');
+
+            if (titleInput && slugInput) {
+                titleInput.addEventListener('blur', function() {
+                    if (!slugInput.value) {
+                        const slug = this.value.toLowerCase()
+                            .replace(/[^ws]/g, '') // 특수문자 제거
+                            .replace(/s+/g, '-') // 공백을 하이픈으로 변경
+                            .replace(/--+/g, '-') // 여러 하이픈을 하나로 병합
+                            .trim();
+                        slugInput.value = slug;
+                    }
+                });
+            }
+
+            // 미리보기 모달
+            const previewButton = document.getElementById('preview-post');
+            const previewModal = document.getElementById('preview-modal');
+            const previewContent = document.getElementById('preview-content');
+            const closePreviewBtn = document.getElementById('close-preview-btn');
+            const closePreview = document.getElementById('close-preview');
+
+            if (previewButton && previewModal && previewContent && closePreviewBtn && closePreview) {
+                previewButton.addEventListener('click', function() {
+                    // 에디터 내용 가져오기
+                    const title = document.getElementById('title').value || '제목 없음';
+                    const content = tinymce.get('content').getContent() || '<p>내용 없음</p>';
+                    const category = document.getElementById('category');
+                    const categoryText = category.options[category.selectedIndex].text;
+                    
+                    // 미리보기 콘텐츠 생성
+                    previewContent.innerHTML = `
+                        <article>
+                            <h1 class="text-3xl font-bold text-gray-900 mb-4">${title}</h1>
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full">${categoryText}</span>
+                                <span class="text-gray-500 text-sm">${new Date().toLocaleDateString('ko-KR')}</span>
+                            </div>
+                            <div class="prose max-w-none">${content}</div>
+                        </article>
+                    `;
+                    
+                    // 모달 표시
+                    previewModal.classList.remove('hidden');
+                    document.body.classList.add('overflow-hidden');
+                });
+
+                closePreviewBtn.addEventListener('click', closePreviewModal);
+                closePreview.addEventListener('click', closePreviewModal);
+                previewModal.addEventListener('click', function(event) {
+                    if (event.target === previewModal) {
+                        closePreviewModal();
+                    }
+                });
+
+                function closePreviewModal() {
+                    previewModal.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            }
+
+            // 임시저장 기능
+            const saveDraftBtn = document.getElementById('save-draft');
+            const postForm = document.getElementById('post-form');
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            if (saveDraftBtn && postForm && loadingOverlay) {
+                saveDraftBtn.addEventListener('click', function() {
+                    // 임시저장 상태로 변경
+                    document.getElementById('status').value = 'draft';
+                    
+                    // 서버에 저장 로직 (여기서는 시뮬레이션)
+                    loadingOverlay.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        loadingOverlay.classList.add('hidden');
+                        alert('임시저장 되었습니다.');
+                    }, 1500); // 저장 시뮬레이션
+                });
+            }
+
+            // 게시하기 기능
+            postForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 폼 유효성 검사
+                const title = document.getElementById('title').value;
+                if (!title) {
+                    alert('제목을 입력해주세요.');
+                    return;
+                }
+                
+                // 서버에 게시 로직 (여기서는 시뮬레이션)
+                loadingOverlay.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    loadingOverlay.classList.add('hidden');
+                    alert('게시물이 성공적으로 등록되었습니다.');
+                    window.location.href = 'posts.html'; // 게시물 목록으로 이동
+                }, 2000); // 저장 시뮬레이션
+            });
+        });
+    </script>`,
+      `oldText`: `    <!-- 미리보`
+    }
+  ]
+}
